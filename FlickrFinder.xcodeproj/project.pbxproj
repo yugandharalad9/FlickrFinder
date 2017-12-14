@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FAD09C41FE32BD9007D9910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD09C31FE32BD9007D9910 /* Constants.swift */; };
+		8FAD09C61FE32C6E007D9910 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD09C51FE32C6E007D9910 /* GCDBlackBox.swift */; };
 		8FB05EF31FE1C98400A81677 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB05EF21FE1C98400A81677 /* AppDelegate.swift */; };
 		8FB05EF51FE1C98400A81677 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB05EF41FE1C98400A81677 /* ViewController.swift */; };
 		8FB05EF81FE1C98400A81677 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FB05EF61FE1C98400A81677 /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8FAD09C31FE32BD9007D9910 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8FAD09C51FE32C6E007D9910 /* GCDBlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		8FB05EEF1FE1C98400A81677 /* FlickrFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FB05EF21FE1C98400A81677 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8FB05EF41FE1C98400A81677 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				8FB05EF21FE1C98400A81677 /* AppDelegate.swift */,
 				8FB05EF41FE1C98400A81677 /* ViewController.swift */,
 				8FB05EF61FE1C98400A81677 /* Main.storyboard */,
+				8FAD09C31FE32BD9007D9910 /* Constants.swift */,
+				8FAD09C51FE32C6E007D9910 /* GCDBlackBox.swift */,
 				8FB05EF91FE1C98400A81677 /* Assets.xcassets */,
 				8FB05EFB1FE1C98400A81677 /* LaunchScreen.storyboard */,
 				8FB05EFE1FE1C98400A81677 /* Info.plist */,
@@ -259,8 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FAD09C61FE32C6E007D9910 /* GCDBlackBox.swift in Sources */,
 				8FB05EF51FE1C98400A81677 /* ViewController.swift in Sources */,
 				8FB05EF31FE1C98400A81677 /* AppDelegate.swift in Sources */,
+				8FAD09C41FE32BD9007D9910 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
