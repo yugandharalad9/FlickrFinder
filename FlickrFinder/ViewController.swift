@@ -85,7 +85,20 @@ extension ViewController: UITextFieldDelegate {
         }
     }
     
+    //Mark: - TextField Validation
     
+    func isTextFieldValid(_ textField: UITextField, forRange: (Double, Double)) -> Bool {
+        
+        if let value = Double(textField.text!), !textField.text!.isEmpty {
+            return isValueInRange(value, min: forRange.0, max: forRange.1)
+        } else {
+            return false
+        }
+    }
+    
+    func isValueInRange(_ value: Double, min: Double, max: Double) -> Bool {
+        return !(value < min || value > max)
+    }
     
     
     
