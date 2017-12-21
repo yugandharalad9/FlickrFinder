@@ -109,6 +109,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
+
 //Mark: - ViewController (Notifications)
 
 private extension ViewController {
@@ -119,6 +120,33 @@ private extension ViewController {
     func unsubscribeFromAllNotifications()  {
         NotificationCenter.default.removeObserver(self)
     }
-    
 }
+
+//Mark: - ViewController (Configure UI)
+
+private extension ViewController {
+    
+    func setUIEnabled(_ enabled: Bool) {
+        photoTitleLabel.isEnabled = enabled
+        phraseTextField.isEnabled = enabled
+        latitudeTextField.isEnabled = enabled
+        longitudeTextField.isEnabled = enabled
+        phraseSearchButton.isEnabled = enabled
+        latLonSearchButton.isEnabled = enabled
+        currentLocationTextField.isEnabled = enabled
+        currentLocationSearchButton.isEnabled = enabled
+        
+        //Adjust search button alphas
+        if enabled {
+            phraseSearchButton.alpha = 1.0
+            latLonSearchButton.alpha = 1.0
+            currentLocationSearchButton.alpha = 1.0
+        } else {
+            phraseSearchButton.alpha = 0.5
+            latLonSearchButton.alpha = 0.5
+            currentLocationSearchButton.alpha = 0.5
+        }
+    }
+}
+
 
