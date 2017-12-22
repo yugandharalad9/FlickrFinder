@@ -31,8 +31,18 @@ class ViewController: UIViewController {
         phraseTextField.delegate = self
         latitudeTextField.delegate = self
         longitudeTextField.delegate = self
+        currentLocationTextField.delegate = self
+        subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
+        subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
+        subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
+        subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
         
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromAllNotifications()
     }
 
     @IBAction func userDidTapView(_ sender: Any) {
@@ -59,23 +69,23 @@ extension ViewController: UITextFieldDelegate {
     
     //Mark: Show/Hide Keyboard
     
-    func keyboardWillShow(_ notification: Notification)  {
+    @objc func keyboardWillShow(_ notification: Notification)  {
         if !keyboardOnScreen {
             view.frame.origin.y -= keyboardHeight(notification)
         }
     }
     
-    func keyboardWillHide(_ notification: Notification)  {
+    @objc func keyboardWillHide(_ notification: Notification)  {
         if keyboardOnScreen {
             view.frame.origin.y += keyboardHeight(notification)
         }
     }
     
-    func keyboardDidShow(_ notification: Notification)  {
+    @objc func keyboardDidShow(_ notification: Notification)  {
         keyboardOnScreen = true
     }
     
-    func keyboardDidHide(_ notification: Notification)  {
+    @objc func keyboardDidHide(_ notification: Notification)  {
         keyboardOnScreen = false
     }
     
