@@ -5,16 +5,26 @@
 //  Created by Yugandhara Lad More on 12/13/17.
 //  Copyright © 2017 Yugandhara Lad. All rights reserved.
 //
-
+import Foundation
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
+
+
+class ViewController: UIViewController, CLLocationManagerDelegate {
     
     //Mark: - Properties
     
     var keyboardOnScreen = false
+     let myLocationManager = CLLocationManager()
     
     
+    let cllocation = CLLocation()
+    
+    //Creating an object reference of Class URLComponents
+    
+    
+    //Outlets
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var photoTitleLabel: UILabel!
     @IBOutlet weak var phraseTextField: UITextField!
@@ -25,19 +35,150 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentLocationTextField: UITextField!
     @IBOutlet weak var currentLocationSearchButton: UIButton!
     
+    
     //Mark: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         phraseTextField.delegate = self
         latitudeTextField.delegate = self
         longitudeTextField.delegate = self
-        currentLocationTextField.delegate = self
+        
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
         subscribeToNotification(.UIKeyboardDidShow, selector: #selector(keyboardDidShow))
         subscribeToNotification(.UIKeyboardDidHide, selector: #selector(keyboardDidHide))
         
+        
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    
+    //Mark: - Search Actions
+    
+    @IBAction func searchByPhrase(_ sender: Any) {
+        userDidTapView(self)
+        setUIEnabled(false)
+        if !phraseTextField.text!.isEmpty {
+            //phraseTextField.text = "Seaching..."
+            
+            //Setting neccessary parameters
+            let methodParameters: [String:AnyObject] = [Constants.FlickrParameterKeys.APIKey : Constants.FlickrParameterValues.APIKey as AnyObject, Constants.FlickrParameterKeys.Method: Constants.FlickrParameterValues.SearchMethod as AnyObject, Constants.FlickrParameterKeys.Text: phraseTextField.text! as AnyObject, Constants.FlickrParameterKeys.SafeSearch: Constants.FlickrParameterValues.UseSafeSearch as AnyObject,
+                Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL as AnyObject,
+                Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat as AnyObject,
+                Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback as AnyObject]
+            displayImagesFromFlickrbySearch(methodParameters)
+        }
+        else {
+            setUIEnabled(true)
+            photoTitleLabel.text = "Empty"
+        }
+    }
+    
+    @IBAction func searchByLatLon(_ sender: UIButton) {
+        
+        userDidTapView(self)
+        setUIEnabled(false)
+        if isTextFieldValid(latitudeTextField) == true && isTextFieldValid(longitudeTextField) == true {
+            let methodParameters : [String: AnyObject] = [Constants.FlickrParameterKeys.APIKey : Constants.FlickrParameterValues.APIKey as AnyObject, Constants.FlickrParameterKeys.Method: Constants.FlickrParameterValues.SearchMethod as AnyObject, Constants.FlickrParameterKeys.BoundingBox: bBoxString(latitudeTextField.text!, longitudeTextField.text!) as AnyObject, Constants.FlickrParameterKeys.SafeSearch: Constants.FlickrParameterValues.UseSafeSearch as AnyObject, Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL as AnyObject,
+                                                          Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat as AnyObject, Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback as AnyObject]
+            displayImagesFromFlickrbySearch(methodParameters)
+            print("heowldy" )
+        } else {
+            setUIEnabled(true)
+            photoTitleLabel.text = "Lat should be [-90, 90].\nLon should be [-180, 180]."
+        }
+    }
+   
+    @IBAction func SearchByCurrentLocation(_ sender: UIButton) {
+        userDidTapView(self)
+        setUIEnabled(false)
+        if true {
+        myLocationManager.delegate = self
+           
+        //locationManager(myLocationManager, didUpdateLocations: CLLocation)
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //For use in foreground
+        //self.locationManager.requestAlwaysAuthorization()
+        //Ask for Authorization from user
+        myLocationManager.requestWhenInUseAuthorization()
+        myLocationManager.startUpdatingLocation()
+        
+        
+        
+     /*
+        print("heowldy" )*/
+    }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        print(locations)
+        var currentLat = locations[0].coordinate.latitude
+        var currentLong = locations[0].coordinate.longitude
+        CreateMethodParameters(currentLat, currentLong)
+       
+    }
+    
+    func CreateMethodParameters(_ lat: CLLocationDegrees, _ long: CLLocationDegrees) {
+        let methodParameters : [String: AnyObject] = [Constants.FlickrParameterKeys.APIKey : Constants.FlickrParameterValues.APIKey as AnyObject, Constants.FlickrParameterKeys.Method: Constants.FlickrParameterValues.SearchMethod as AnyObject, Constants.FlickrParameterKeys.BoundingBox: bBoxString(String(lat), String(long)) as AnyObject, Constants.FlickrParameterKeys.SafeSearch: Constants.FlickrParameterValues.UseSafeSearch as AnyObject, Constants.FlickrParameterKeys.Extras: Constants.FlickrParameterValues.MediumURL as AnyObject,
+            Constants.FlickrParameterKeys.Format: Constants.FlickrParameterValues.ResponseFormat as AnyObject, Constants.FlickrParameterKeys.NoJSONCallback: Constants.FlickrParameterValues.DisableJSONCallback as AnyObject]
+        displayImagesFromFlickrbySearch(methodParameters)
+        
+    }
+    
+    
+    func bBoxString (_ latitude: String!, _ longitude: String!) -> String {
+       
+        let minLatCenter =  ((Double(latitude))! - Constants.Flickr.SearchBBoxHalfWidth)
+        let maxLatCenter =  ((Double(latitude))! + Constants.Flickr.SearchBBoxHalfWidth)
+        let minLonCenter =  ((Double (longitude))! - Constants.Flickr.SearchBBoxHalfHeight)
+        let maxLonCenter =  ((Double (longitude))! + Constants.Flickr.SearchBBoxHalfHeight)
+            
+            return "\(minLonCenter),\(minLatCenter),\(maxLonCenter),\(maxLatCenter)"
+    }
+    
+    func isTextFieldValid(_ textField: UITextField) -> Bool {
+        if let newTextField = textField.text, let textFieldDouble = Double(newTextField), !(textField.text?.isEmpty)! {
+            if (-180 < textFieldDouble && textFieldDouble < 180) || (-90 < textFieldDouble && textFieldDouble < 90) {
+               print("true is it")
+                return true
+            }
+        }
+        print("false is it")
+        return false
+        
+    }
+    
+    
+    @IBAction func searchByCurrentLocation(_ sender: UIButton) {
+        }
+    
+    //Displaying Images from Flickr
+    private func displayImagesFromFlickrbySearch (_ methodParameters: [String:AnyObject]) {
+        print(flickrURLFromParameters(methodParameters))
+    }
+
+    
+    func flickrURLFromParameters(_ parameters: [String:AnyObject]) -> URL {
+        //Creating an Object of the class URLCOmponent using the default initializer and assigned it to a variable called components
+        var components = URLComponents()
+        //Assigned Values to oject properties
+        components.scheme = Constants.Flickr.APIScheme
+        components.host = Constants.Flickr.APIHost
+        components.path = Constants.Flickr.APIPath
+        
+        // Assigning an array of the type URLQueryItem
+        components.queryItems = [URLQueryItem]()
+        
+        //Creating queryItems and appending it to component to form the url
+        for (key, value) in parameters {
+            let queryItem = URLQueryItem(name: key, value: value as? String)
+            components.queryItems?.append(queryItem)
+        }
+        
+        print(components.url!)
+        return components.url!
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -49,13 +190,10 @@ class ViewController: UIViewController {
         resignFirstResponder(phraseTextField)
         resignFirstResponder(latitudeTextField)
         resignFirstResponder(longitudeTextField)
-        resignFirstResponder(currentLocationTextField)
+        
     }
     
-
-
 }
-
 //Mark: - ViewController: UITextFieldDelegate
 
 extension ViewController: UITextFieldDelegate {
@@ -97,7 +235,7 @@ extension ViewController: UITextFieldDelegate {
     
     //Mark: - TextField Validation
     
-    func isTextFieldValid(_ textField: UITextField, forRange: (Double, Double)) -> Bool {
+    /* func isTextFieldValid(_ textField: UITextField, forRange: (Double, Double)) -> Bool {
         
         if let value = Double(textField.text!), !textField.text!.isEmpty {
             return isValueInRange(value, min: forRange.0, max: forRange.1)
@@ -108,7 +246,7 @@ extension ViewController: UITextFieldDelegate {
     
     func isValueInRange(_ value: Double, min: Double, max: Double) -> Bool {
         return !(value < min || value > max)
-    }
+    } */
     
     
     
@@ -143,7 +281,6 @@ private extension ViewController {
         longitudeTextField.isEnabled = enabled
         phraseSearchButton.isEnabled = enabled
         latLonSearchButton.isEnabled = enabled
-        currentLocationTextField.isEnabled = enabled
         currentLocationSearchButton.isEnabled = enabled
         
         //Adjust search button alphas

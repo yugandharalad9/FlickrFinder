@@ -19,70 +19,74 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fjN-t4-Quz">
-                                <rect key="frame" x="16" y="28" width="343" height="447"/>
+                                <rect key="frame" x="16" y="28" width="307" height="443"/>
                                 <color key="backgroundColor" red="0.026957834139466286" green="0.95789593458175659" blue="0.74559205770492554" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZ3-wE-jbF">
-                                <rect key="frame" x="16" y="519" width="343" height="30"/>
+                                <rect key="frame" x="16" y="515" width="307" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Phrase" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bo3-ar-Fj0">
-                                        <rect key="frame" x="0.0" y="0.0" width="283" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="247" height="30"/>
                                         <color key="backgroundColor" red="0.014112290926277637" green="0.99021178483963013" blue="0.98091655969619751" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYH-nG-QRc">
-                                        <rect key="frame" x="283" y="0.0" width="60" height="30"/>
+                                        <rect key="frame" x="247" y="0.0" width="60" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="LTY-s0-Bn1"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="SearchIcon"/>
+                                        <connections>
+                                            <action selector="searchByPhrase:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n4e-lf-Mqc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xB-av-TD5">
-                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <rect key="frame" x="16" y="613" width="307" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Current Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OdP-qZ-Q4h">
-                                        <rect key="frame" x="0.0" y="0.0" width="283" height="30"/>
-                                        <color key="backgroundColor" red="0.014112290926277637" green="0.99021178483963013" blue="0.98091655969619751" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhR-n2-6A4">
-                                        <rect key="frame" x="283" y="0.0" width="60" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="307" height="34"/>
+                                        <color key="backgroundColor" red="0.20838982426963526" green="0.49920575971035508" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="aOA-nH-OPh"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="SearchIcon"/>
+                                        <state key="normal" title="Current Location"/>
+                                        <connections>
+                                            <action selector="SearchByCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1OH-Rf-5hG"/>
+                                            <action selector="searchByCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ce6-Tz-9eT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-cy-7jd">
-                                <rect key="frame" x="16" y="566" width="343" height="30"/>
+                                <rect key="frame" x="16" y="562" width="307" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Latitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bri-9N-B3H">
-                                        <rect key="frame" x="0.0" y="0.0" width="141.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="123.5" height="30"/>
                                         <color key="backgroundColor" red="0.014112290926277637" green="0.99021178483963013" blue="0.98091655969619751" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Longitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vR1-me-wiS">
-                                        <rect key="frame" x="141.5" y="0.0" width="141.5" height="30"/>
+                                        <rect key="frame" x="123.5" y="0.0" width="123.5" height="30"/>
                                         <color key="backgroundColor" red="0.014112290926277637" green="0.99021178483963013" blue="0.98091655969619751" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Msl-u6-mRl">
-                                        <rect key="frame" x="283" y="0.0" width="60" height="30"/>
+                                        <rect key="frame" x="247" y="0.0" width="60" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="KgU-ZL-Lrg"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="SearchIcon"/>
+                                        <connections>
+                                            <action selector="searchByLatLon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ez-7v-r4l"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -90,7 +94,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmH-0a-85v">
-                                <rect key="frame" x="16" y="483" width="343" height="28"/>
+                                <rect key="frame" x="16" y="479" width="307" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="syJ-pF-jfB"/>
                                 </constraints>
@@ -128,7 +132,6 @@
                     </view>
                     <connections>
                         <outlet property="currentLocationSearchButton" destination="uhR-n2-6A4" id="WYx-zY-QN9"/>
-                        <outlet property="currentLocationTextField" destination="OdP-qZ-Q4h" id="8UZ-JM-cYd"/>
                         <outlet property="latLonSearchButton" destination="Msl-u6-mRl" id="7NN-WF-Feq"/>
                         <outlet property="latitudeTextField" destination="bri-9N-B3H" id="PIn-0X-Vxj"/>
                         <outlet property="longitudeTextField" destination="vR1-me-wiS" id="MAX-ZY-49G"/>
